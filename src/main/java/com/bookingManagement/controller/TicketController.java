@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
     TicketService ticketService;
 
     @PostMapping(Constants.Controller.BOOK_TICKET)
-    //@ValidateRequest
+    @ValidateRequest
     public ResponseEntity<Response> bookTicketNow(@RequestBody BookingRequestDto bookingRequestDto) {
         try {
             return APIResponse.renderSuccess(ticketService.bookTicket(bookingRequestDto), 200, HttpStatus.OK);

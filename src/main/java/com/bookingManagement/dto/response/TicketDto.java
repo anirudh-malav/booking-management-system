@@ -1,5 +1,6 @@
 package com.bookingManagement.dto.response;
 
+import com.bookingManagement.model.ShowSeat;
 import lombok.Data;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public class TicketDto {
 
     private Long showId;
 
-    private List<Long> bookedSeats;
+    private List<ShowSeat> bookedShowSeats;
 }

@@ -60,7 +60,6 @@ public class TicketServiceImpl implements TicketService{
                     Date current = Calendar.getInstance().getTime();
                     if((current.getTime() - seatMap.get(seatId).getModifyDate().getTime()) > 600000L){
                         seatMap.get(seatId).setStatus(SeatStatus.BOOKED);
-                        seatList.add(Seat.builder().seatId(seatId).build());
                     }else{
                         throw new InvalidDataException("Seats are in Progress");
                     }
@@ -72,13 +71,18 @@ public class TicketServiceImpl implements TicketService{
             }
         }
 
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         theatreRepository.save(theatreEntity.get());
 
         Ticket ticket = Ticket.builder().ticketId(UUID.randomUUID().toString())
                 .city(cityEntity.get())
                 .theatre(theatreEntity.get())
                 .show(showEntity.get())
-                .seatList(seatList)
+                .showSeatList(showSeatList)
                 .build();
 
         ticket = ticketRepository.save(ticket);
@@ -137,12 +141,8 @@ public class TicketServiceImpl implements TicketService{
         ticketDto.setTheatreId(ticket.getTheatre().getTheatreId());
         ticketDto.setShowId(ticket.getShow().getShowId());
 
-        List<Seat> seatList = ticket.getSeatList();
-        List<Long> seatIdList = new LinkedList<>();
-        for(Seat seat: seatList){
-            seatIdList.add(seat.getSeatId());
-        }
-        ticketDto.setBookedSeats(seatIdList);
+        List<ShowSeat> showSeatList = ticket.getShowSeatList();
+        ticketDto.setBookedShowSeats(showSeatList);
 
         return ticketDto;
     }

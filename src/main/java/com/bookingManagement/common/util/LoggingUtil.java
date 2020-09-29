@@ -71,7 +71,6 @@ public class LoggingUtil {
 
     private static JSONObject addMetaData(JSONObject data) throws JSONException {
         data.put(Constants.Logging.KEY_TIME, Calendar.getInstance().getTime());
-        data.put(Constants.Logging.KEY_EPOCH_TIME, System.currentTimeMillis());
         if (!CollectionUtils.isEmpty(MDC.getCopyOfContextMap())) {
             for (Map.Entry<String, String> entry : MDC.getCopyOfContextMap().entrySet()) {
                 data.put(entry.getKey(), entry.getValue());

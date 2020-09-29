@@ -20,9 +20,6 @@ public class Ticket extends AbstractEntity<Ticket> {
     private String ticketId;
 
     @ManyToOne
-    private UserDetails userDetails;
-
-    @ManyToOne
     private City city;
 
     @ManyToOne
@@ -32,5 +29,5 @@ public class Ticket extends AbstractEntity<Ticket> {
     private Show show;
 
     @OneToMany
-    private List<Seat> seatList;
+    private List<ShowSeat> showSeatList;
 }
